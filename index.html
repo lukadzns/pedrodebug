@@ -20,11 +20,11 @@
     </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #000000; color: #ffffff; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background: #0f0f0f; color: #ffffff; overflow-x: hidden; }
         ::selection { background: rgba(255,0,0,0.3); color: #fff; }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #0f0f0f; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #FF0000; }
 
         @keyframes fadeInUp {
@@ -44,8 +44,8 @@
             100% { top: 110%; }
         }
         @keyframes grid-pulse {
-            0%, 100% { opacity: 0.03; }
-            50% { opacity: 0.07; }
+            0%, 100% { opacity: 0.06; }
+            50% { opacity: 0.12; }
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
@@ -60,17 +60,19 @@
         .delay-5 { animation-delay: 0.5s; }
         .delay-6 { animation-delay: 0.6s; }
 
-        .glow-red { box-shadow: 0 0 30px rgba(255,0,0,0.2); }
-        .glow-red-strong { box-shadow: 0 0 60px rgba(255,0,0,0.4), 0 0 120px rgba(255,0,0,0.1); }
-        .text-glow { text-shadow: 0 0 20px rgba(255,0,0,0.5), 0 0 40px rgba(255,0,0,0.2); }
+        .glow-red { box-shadow: 0 0 40px rgba(255,0,0,0.3); }
+        .glow-red-strong { box-shadow: 0 0 80px rgba(255,0,0,0.5), 0 0 160px rgba(255,0,0,0.2); }
+        .text-glow { text-shadow: 0 0 30px rgba(255,0,0,0.6), 0 0 60px rgba(255,0,0,0.3); }
 
-        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06); }
-        .glass-red { background: rgba(255,0,0,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,0,0,0.1); }
+        .logo-transparent { mix-blend-mode: screen; }
+
+        .glass { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        .glass-red { background: rgba(255,0,0,0.05); backdrop-filter: blur(12px); border: 1px solid rgba(255,0,0,0.15); }
 
         .grid-bg {
             background-image:
-                linear-gradient(rgba(255,0,0,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,0,0,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(255,0,0,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,0,0,0.06) 1px, transparent 1px);
             background-size: 60px 60px;
             animation: grid-pulse 4s ease-in-out infinite;
         }
@@ -86,7 +88,7 @@
         }
 
         .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .card-hover:hover { transform: translateY(-4px); border-color: rgba(255,0,0,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255,0,0,0.1); }
+        .card-hover:hover { transform: translateY(-4px); border-color: rgba(255,0,0,0.3); box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 40px rgba(255,0,0,0.15); }
 
         .btn-primary {
             background: linear-gradient(135deg, #FF0000, #CC0000);
@@ -103,11 +105,11 @@
             transition: transform 0.5s ease;
         }
         .btn-primary:hover::before { transform: translateX(100%); }
-        .btn-primary:hover { box-shadow: 0 0 30px rgba(255,0,0,0.4); transform: translateY(-1px); }
+        .btn-primary:hover { box-shadow: 0 0 40px rgba(255,0,0,0.5); transform: translateY(-1px); }
 
         .btn-secondary {
             background: transparent;
-            border: 1px solid rgba(255,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
             transition: all 0.3s ease;
         }
         .btn-secondary:hover { background: rgba(255,0,0,0.1); border-color: rgba(255,0,0,0.5); }
@@ -127,15 +129,15 @@
         .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
 
         .feature-icon {
-            background: rgba(255,0,0,0.08);
-            border: 1px solid rgba(255,0,0,0.15);
+            background: rgba(255,0,0,0.1);
+            border: 1px solid rgba(255,0,0,0.2);
             transition: all 0.3s ease;
         }
-        .card-hover:hover .feature-icon { background: rgba(255,0,0,0.15); border-color: rgba(255,0,0,0.3); }
+        .card-hover:hover .feature-icon { background: rgba(255,0,0,0.18); border-color: rgba(255,0,0,0.4); }
 
         .modal-overlay {
             position: fixed; inset: 0;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             backdrop-filter: blur(8px);
             z-index: 1000;
             display: none;
@@ -157,70 +159,72 @@
     <!-- Purchase Modal -->
     <div id="purchaseModal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
         <div class="glass rounded-2xl p-8 max-w-md w-full mx-4 relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-neutral-500 hover:text-white transition-colors">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-white transition-colors">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             <div class="text-center mb-6">
-                <img src="https://z-cdn-media.chatglm.cn/files/f16f9dee-82e2-4e90-b88a-d86e4a74dd66.jpg?auth_key=1878175700-5422dcb00b7f4aabb92793bc19e6cd44-0-d06ab7b0e9a980751a806b9affafea09" alt="PD" class="w-16 h-16 rounded-xl mx-auto mb-4">
+                <img src="https://z-cdn-media.chatglm.cn/files/f16f9dee-82e2-4e90-b88a-d86e4a74dd66.jpg?auth_key=1878175700-5422dcb00b7f4aabb92793bc19e6cd44-0-d06ab7b0e9a980751a806b9affafea09" alt="PD" class="w-16 h-16 rounded-xl mx-auto mb-4 logo-transparent">
                 <h3 id="modal-title" class="text-xl font-bold mb-1">Get Pedro Debug</h3>
-                <p id="modal-plan" class="text-sm text-neutral-400"></p>
+                <p id="modal-plan" class="text-sm text-neutral-300"></p>
             </div>
             <div class="space-y-4">
-                <p class="text-sm text-neutral-400 text-center leading-relaxed">Payment is handled through our Discord server. You'll be redirected after clicking below.</p>
-                <button onclick="goToDiscord()" id="purchase-btn" class="btn-primary w-full text-white font-semibold py-3.5 rounded-lg text-sm flex items-center justify-center gap-2">
+                <p class="text-sm text-neutral-300 text-center leading-relaxed">Payment is handled through our Discord server. You'll be redirected after clicking below.</p>
+                <button onclick="goToDiscord()" class="btn-primary w-full text-white font-semibold py-3.5 rounded-lg text-sm flex items-center justify-center gap-2">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                     <span>Continue on Discord</span>
                 </button>
-                <button onclick="closeModal()" class="w-full text-neutral-500 hover:text-neutral-300 text-sm py-2 transition-colors">Cancel</button>
+                <button onclick="closeModal()" class="w-full text-neutral-400 hover:text-white text-sm py-2 transition-colors">Cancel</button>
             </div>
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-xl border-b border-white/5">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0f0f0f]/70 backdrop-blur-xl border-b border-white/10">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <a href="#" class="flex items-center gap-3 group">
-                <img src="https://z-cdn-media.chatglm.cn/files/f16f9dee-82e2-4e90-b88a-d86e4a74dd66.jpg?auth_key=1878175700-5422dcb00b7f4aabb92793bc19e6cd44-0-d06ab7b0e9a980751a806b9affafea09" alt="PD Logo" class="w-9 h-9 rounded-lg">
+                <img src="https://z-cdn-media.chatglm.cn/files/f16f9dee-82e2-4e90-b88a-d86e4a74dd66.jpg?auth_key=1878175700-5422dcb00b7f4aabb92793bc19e6cd44-0-d06ab7b0e9a980751a806b9affafea09" alt="PD Logo" class="w-9 h-9 rounded-lg logo-transparent">
                 <span class="font-bold text-sm tracking-tight hidden sm:block">PEDRO DEBUG</span>
             </a>
             <div class="hidden md:flex items-center gap-8">
-                <a href="#features" class="text-sm text-neutral-400 hover:text-white transition-colors duration-200">Features</a>
-                <a href="#pricing" class="text-sm text-neutral-400 hover:text-white transition-colors duration-200">Pricing</a>
-                <a href="#faq" class="text-sm text-neutral-400 hover:text-white transition-colors duration-200">FAQ</a>
+                <a href="#features" class="text-sm text-neutral-300 hover:text-white transition-colors duration-200">Features</a>
+                <a href="#pricing" class="text-sm text-neutral-300 hover:text-white transition-colors duration-200">Pricing</a>
+                <a href="#faq" class="text-sm text-neutral-300 hover:text-white transition-colors duration-200">FAQ</a>
                 <a href="https://discord.gg/tw66vCJZpE" target="_blank" class="btn-secondary text-white text-sm font-medium px-5 py-2 rounded-lg flex items-center gap-2">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                     Discord
                 </a>
             </div>
-            <button onclick="toggleMobileMenu()" class="md:hidden text-neutral-400 hover:text-white transition-colors">
+            <button onclick="toggleMobileMenu()" class="md:hidden text-neutral-300 hover:text-white transition-colors">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
-        <div id="mobile-menu" class="mobile-menu md:hidden border-t border-white/5">
-            <div class="px-6 py-4 space-y-3 bg-black/90 backdrop-blur-xl">
-                <a href="#features" onclick="closeMobileMenu()" class="block text-sm text-neutral-400 hover:text-white py-2">Features</a>
-                <a href="#pricing" onclick="closeMobileMenu()" class="block text-sm text-neutral-400 hover:text-white py-2">Pricing</a>
-                <a href="#faq" onclick="closeMobileMenu()" class="block text-sm text-neutral-400 hover:text-white py-2">FAQ</a>
+        <div id="mobile-menu" class="mobile-menu md:hidden border-t border-white/10">
+            <div class="px-6 py-4 space-y-3 bg-[#0f0f0f]/95 backdrop-blur-xl">
+                <a href="#features" onclick="closeMobileMenu()" class="block text-sm text-neutral-300 hover:text-white py-2">Features</a>
+                <a href="#pricing" onclick="closeMobileMenu()" class="block text-sm text-neutral-300 hover:text-white py-2">Pricing</a>
+                <a href="#faq" onclick="closeMobileMenu()" class="block text-sm text-neutral-300 hover:text-white py-2">FAQ</a>
                 <a href="https://discord.gg/tw66vCJZpE" target="_blank" class="btn-primary block text-center text-white text-sm font-medium px-5 py-2.5 rounded-lg mt-2">Join Discord</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg scan-line">
-        <div class="absolute inset-0 bg-gradient-to-b from-red-950/10 via-transparent to-transparent"></div>
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/5 rounded-full blur-[120px]"></div>
-        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-10"></div>
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg scan-line" style="background-color: #1a1a1a;">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,0,0,0.15)_0%,transparent_70%)]"></div>
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-600/20 rounded-full blur-[160px]"></div>
+        <div class="absolute top-[60%] left-[20%] w-[400px] h-[400px] bg-red-800/10 rounded-full blur-[120px]"></div>
+        <div class="absolute top-[30%] right-[10%] w-[300px] h-[300px] bg-red-700/8 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0f0f0f] to-transparent z-10"></div>
 
         <div class="relative z-20 max-w-5xl mx-auto px-6 text-center pt-16">
             <div class="animate-fade-in-up mb-8" style="animation: float 4s ease-in-out infinite, fadeInUp 0.8s ease-out forwards;">
-                <img src="https://z-cdn-media.chatglm.cn/files/f16f9dee-82e2-4e90-b88a-d86e4a74dd66.jpg?auth_key=1878175700-5422dcb00b7f4aabb92793bc19e6cd44-0-d06ab7b0e9a980751a806b9affafea09" alt="Pedro Debug Logo" class="w-28 h-28 md:w-36 md:h-36 rounded-2xl mx-auto glow-red-strong">
+                <img src="https://z-cdn-media.chatglm.cn/files/f16f9dee-82e2-4e90-b88a-d86e4a74dd66.jpg?auth_key=1878175700-5422dcb00b7f4aabb92793bc19e6cd44-0-d06ab7b0e9a980751a806b9affafea09" alt="Pedro Debug Logo" class="w-28 h-28 md:w-36 md:h-36 rounded-2xl mx-auto glow-red-strong logo-transparent">
             </div>
             <div class="animate-fade-in-up delay-1 mb-6">
-                <img src="https://z-cdn-media.chatglm.cn/files/5c3e6cab-751e-486a-a062-a5ba1d63a0fa.jpg?auth_key=1879175700-9fcc622a802944279b2053d12d2d21ca-0-cd6d7e51a9c067e35d08f8e8a38572df" alt="PEDRO DEBUG" class="h-12 md:h-16 mx-auto">
+                <img src="https://z-cdn-media.chatglm.cn/files/5c3e6cab-751e-486a-a062-a5ba1d63a0fa.jpg?auth_key=1879175700-9fcc622a802944279b2053d12d2d21ca-0-cd6d7e51a9c067e35d08f8e8a38572df" alt="PEDRO DEBUG" class="h-12 md:h-16 mx-auto logo-transparent">
             </div>
             <div class="animate-fade-in-up delay-2 mb-8">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-red text-xs font-medium text-red-400">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/15 border border-red-500/25 text-xs font-medium text-red-400">
                     <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                     Minecraft 1.21.11 — DonutSMP Ready
                 </span>
@@ -229,7 +233,7 @@
                 Hunt bases.<br>
                 <span class="text-glow text-red-500">Stay smooth.</span>
             </h1>
-            <p class="animate-fade-in-up delay-4 text-lg md:text-xl text-neutral-400 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p class="animate-fade-in-up delay-4 text-lg md:text-xl text-neutral-200 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
                 The only client built specifically for base-hunting on DonutSMP. Optimized rendering, zero lag, maximum advantage.
             </p>
             <div class="animate-fade-in-up delay-5 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -244,64 +248,64 @@
             </div>
             <div class="animate-fade-in-up delay-6 mt-16 grid grid-cols-3 gap-6 max-w-lg mx-auto">
                 <div class="text-center">
-                    <div class="text-2xl md:text-3xl font-bold">1.21</div>
-                    <div class="text-xs text-neutral-500 mt-1">Version</div>
+                    <div class="text-2xl md:text-3xl font-bold">1.21.11</div>
+                    <div class="text-xs text-neutral-300 mt-1">Version</div>
                 </div>
-                <div class="text-center border-x border-white/5">
+                <div class="text-center border-x border-white/15">
                     <div class="text-2xl md:text-3xl font-bold text-red-500">0ms</div>
-                    <div class="text-xs text-neutral-500 mt-1">Added Lag</div>
+                    <div class="text-xs text-neutral-300 mt-1">Added Lag</div>
                 </div>
                 <div class="text-center">
                     <div class="text-2xl md:text-3xl font-bold">24/7</div>
-                    <div class="text-xs text-neutral-500 mt-1">Support</div>
+                    <div class="text-xs text-neutral-300 mt-1">Support</div>
                 </div>
             </div>
         </div>
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce">
-            <i data-lucide="chevron-down" class="w-5 h-5 text-neutral-600"></i>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-neutral-400"></i>
         </div>
     </section>
 
     <!-- Marquee -->
-    <div class="relative py-4 border-y border-white/5 bg-black/50 overflow-hidden">
+    <div class="relative py-4 border-y border-white/10 bg-[#0f0f0f] overflow-hidden">
         <div class="marquee-container">
             <div class="marquee-content">
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">BASE HUNTING</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">BASE HUNTING</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">DONUTSMP</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">DONUTSMP</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">SMOOTH GAMEPLAY</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">SMOOTH GAMEPLAY</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">1.21.11</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">1.21.11</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">PEDRO DEBUG</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">PEDRO DEBUG</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">LIFETIME ACCESS</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">LIFETIME ACCESS</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">BASE HUNTING</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">BASE HUNTING</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">DONUTSMP</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">DONUTSMP</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">SMOOTH GAMEPLAY</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">SMOOTH GAMEPLAY</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">1.21.11</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">1.21.11</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">PEDRO DEBUG</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">PEDRO DEBUG</span>
                 <span class="text-red-500 mx-4">◆</span>
-                <span class="text-xs font-medium tracking-widest uppercase text-neutral-600 mx-8">LIFETIME ACCESS</span>
+                <span class="text-xs font-medium tracking-widest uppercase text-neutral-400 mx-8">LIFETIME ACCESS</span>
                 <span class="text-red-500 mx-4">◆</span>
             </div>
         </div>
     </div>
 
     <!-- Features -->
-    <section id="features" class="relative py-24 md:py-32">
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/3 rounded-full blur-[150px]"></div>
+    <section id="features" class="relative py-24 md:py-32" style="background: #0f0f0f;">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/8 rounded-full blur-[150px]"></div>
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="text-center mb-16">
                 <span class="inline-block text-xs font-medium tracking-[0.2em] uppercase text-red-500 mb-4">Why Pedro Debug</span>
                 <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Built for the hunt.</h2>
-                <p class="text-neutral-400 font-light text-lg max-w-xl mx-auto">Every feature is designed around one goal — finding bases faster and cleaner than anyone else.</p>
+                <p class="text-neutral-300 font-light text-lg max-w-xl mx-auto">Every feature is designed around one goal — finding bases faster and cleaner than anyone else.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 <div class="glass card-hover rounded-2xl p-7 group">
@@ -309,79 +313,78 @@
                         <i data-lucide="radar" class="w-5 h-5 text-red-500"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-2">Base-Hunting Optimized</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">Purpose-built tools specifically designed for finding bases on DonutSMP. Enhanced render distance, chunk scanning, and coordinate tracking.</p>
+                    <p class="text-sm text-neutral-300 font-light leading-relaxed">Purpose-built tools specifically designed for finding bases on DonutSMP. Enhanced render distance, chunk scanning, and coordinate tracking.</p>
                 </div>
                 <div class="glass card-hover rounded-2xl p-7 group">
                     <div class="feature-icon w-12 h-12 rounded-xl flex items-center justify-center mb-5">
                         <i data-lucide="gauge" class="w-5 h-5 text-red-500"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-2">Zero-Lag Rendering</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">Custom rendering pipeline that actually makes your game smoother. No FPS drops, no stutter — just clean performance.</p>
+                    <p class="text-sm text-neutral-300 font-light leading-relaxed">Custom rendering pipeline that actually makes your game smoother. No FPS drops, no stutter — just clean performance.</p>
                 </div>
                 <div class="glass card-hover rounded-2xl p-7 group">
                     <div class="feature-icon w-12 h-12 rounded-xl flex items-center justify-center mb-5">
                         <i data-lucide="shield-check" class="w-5 h-5 text-red-500"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-2">Undetected</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">Built with safety first. Regular updates keep you ahead of any detection changes. Your account stays safe.</p>
+                    <p class="text-sm text-neutral-300 font-light leading-relaxed">Built with safety first. Regular updates keep you ahead of any detection changes. Your account stays safe.</p>
                 </div>
                 <div class="glass card-hover rounded-2xl p-7 group">
                     <div class="feature-icon w-12 h-12 rounded-xl flex items-center justify-center mb-5">
                         <i data-lucide="layers" class="w-5 h-5 text-red-500"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-2">1.21.11 Native</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">Not a port, not a fork — built from scratch for Minecraft 1.21.11 Bedrock. Full compatibility, zero issues.</p>
+                    <p class="text-sm text-neutral-300 font-light leading-relaxed">Not a port, not a fork — built from scratch for Minecraft 1.21.11 Bedrock. Full compatibility, zero issues.</p>
                 </div>
                 <div class="glass card-hover rounded-2xl p-7 group">
                     <div class="feature-icon w-12 h-12 rounded-xl flex items-center justify-center mb-5">
                         <i data-lucide="sliders-horizontal" class="w-5 h-5 text-red-500"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-2">Full Customization</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">Every module, every toggle, every keybind — fully configurable. Make the client work exactly how you want it.</p>
+                    <p class="text-sm text-neutral-300 font-light leading-relaxed">Every module, every toggle, every keybind — fully configurable. Make the client work exactly how you want it.</p>
                 </div>
                 <div class="glass card-hover rounded-2xl p-7 group">
                     <div class="feature-icon w-12 h-12 rounded-xl flex items-center justify-center mb-5">
                         <i data-lucide="refresh-cw" class="w-5 h-5 text-red-500"></i>
                     </div>
                     <h3 class="text-lg font-semibold mb-2">Instant Updates</h3>
-                    <p class="text-sm text-neutral-400 font-light leading-relaxed">Game updates? We update same day. Auto-update system ensures you're always on the latest version without lifting a finger.</p>
+                    <p class="text-sm text-neutral-300 font-light leading-relaxed">Game updates? We update same day. Auto-update system ensures you're always on the latest version without lifting a finger.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Showcase -->
-    <section class="relative py-24 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-red-950/5 to-transparent"></div>
+    <section class="relative py-24 overflow-hidden" style="background: #0f0f0f;">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="glass-red rounded-3xl p-8 md:p-14 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center glow-red">
                 <div>
                     <span class="inline-block text-xs font-medium tracking-[0.2em] uppercase text-red-500 mb-4">DonutSMP Exclusive</span>
                     <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-5">Made for the server you actually play on.</h2>
-                    <p class="text-neutral-400 font-light leading-relaxed mb-6">
+                    <p class="text-neutral-200 font-light leading-relaxed mb-6">
                         Pedro Debug isn't a generic client that "works on DonutSMP." It's engineered for it. Every base-hunting feature is tuned to DonutSMP's specific world generation, chunk loading behavior, and server configuration.
                     </p>
                     <ul class="space-y-3">
-                        <li class="flex items-center gap-3 text-sm text-neutral-300">
-                            <div class="w-5 h-5 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
+                        <li class="flex items-center gap-3 text-sm text-neutral-200">
+                            <div class="w-5 h-5 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0">
                                 <i data-lucide="check" class="w-3 h-3 text-red-500"></i>
                             </div>
                             Optimized chunk border detection for DonutSMP world type
                         </li>
-                        <li class="flex items-center gap-3 text-sm text-neutral-300">
-                            <div class="w-5 h-5 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
+                        <li class="flex items-center gap-3 text-sm text-neutral-200">
+                            <div class="w-5 h-5 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0">
                                 <i data-lucide="check" class="w-3 h-3 text-red-500"></i>
                             </div>
                             Enhanced render distance beyond normal limits
                         </li>
-                        <li class="flex items-center gap-3 text-sm text-neutral-300">
-                            <div class="w-5 h-5 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
+                        <li class="flex items-center gap-3 text-sm text-neutral-200">
+                            <div class="w-5 h-5 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0">
                                 <i data-lucide="check" class="w-3 h-3 text-red-500"></i>
                             </div>
                             Smart coordinate logging with auto-waypoints
                         </li>
-                        <li class="flex items-center gap-3 text-sm text-neutral-300">
-                            <div class="w-5 h-5 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0">
+                        <li class="flex items-center gap-3 text-sm text-neutral-200">
+                            <div class="w-5 h-5 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0">
                                 <i data-lucide="check" class="w-3 h-3 text-red-500"></i>
                             </div>
                             Low-profile mode for streaming and screenshots
@@ -389,26 +392,26 @@
                     </ul>
                 </div>
                 <div class="relative">
-                    <div class="absolute inset-0 bg-red-500/5 rounded-2xl blur-3xl"></div>
+                    <div class="absolute inset-0 bg-red-500/8 rounded-2xl blur-3xl"></div>
                     <div class="relative glass rounded-2xl p-6 space-y-4">
                         <div class="flex items-center gap-2 mb-4">
                             <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
                             <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
                             <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
-                            <span class="text-xs text-neutral-600 ml-2 font-mono">pedro-debug.log</span>
+                            <span class="text-xs text-neutral-400 ml-2 font-mono">pedro-debug.log</span>
                         </div>
                         <div class="font-mono text-xs space-y-2">
-                            <p class="text-neutral-500">[INFO] Initializing Pedro Debug v2.1...</p>
-                            <p class="text-green-400/70">[OK] Connected to DonutSMP</p>
-                            <p class="text-green-400/70">[OK] Render engine optimized</p>
-                            <p class="text-green-400/70">[OK] Base-hunt modules loaded</p>
-                            <p class="text-neutral-500">[SCAN] Analyzing chunks... 12,847 loaded</p>
-                            <p class="text-red-400/80">[FOUND] Anomaly at X: -4281 Z: 8923</p>
-                            <p class="text-red-400/80">[FOUND] Possible base — lighting mismatch</p>
-                            <p class="text-yellow-400/70">[WAYPOINT] Saved: Base Candidate #1</p>
-                            <p class="text-neutral-500">[SCAN] Continuing scan...</p>
-                            <p class="text-green-400/70">[PERF] 142 FPS — 0ms frame overhead</p>
-                            <p class="text-neutral-600 animate-pulse">[SCAN] _</p>
+                            <p class="text-neutral-300">[INFO] Initializing Pedro Debug v2.1...</p>
+                            <p class="text-green-400">[OK] Connected to DonutSMP</p>
+                            <p class="text-green-400">[OK] Render engine optimized</p>
+                            <p class="text-green-400">[OK] Base-hunt modules loaded</p>
+                            <p class="text-neutral-300">[SCAN] Analyzing chunks... 12,847 loaded</p>
+                            <p class="text-red-400">[FOUND] Anomaly at X: -4281 Z: 8923</p>
+                            <p class="text-red-400">[FOUND] Possible base — lighting mismatch</p>
+                            <p class="text-yellow-400">[WAYPOINT] Saved: Base Candidate #1</p>
+                            <p class="text-neutral-300">[SCAN] Continuing scan...</p>
+                            <p class="text-green-400">[PERF] 142 FPS — 0ms frame overhead</p>
+                            <p class="text-neutral-400 animate-pulse">[SCAN] _</p>
                         </div>
                     </div>
                 </div>
@@ -417,39 +420,38 @@
     </section>
 
     <!-- Pricing -->
-    <section id="pricing" class="relative py-24 md:py-32">
-        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-red-600/5 rounded-full blur-[150px]"></div>
+    <section id="pricing" class="relative py-24 md:py-32" style="background: #0f0f0f;">
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-red-600/8 rounded-full blur-[150px]"></div>
         <div class="max-w-5xl mx-auto px-6 relative z-10">
             <div class="text-center mb-16">
                 <span class="inline-block text-xs font-medium tracking-[0.2em] uppercase text-red-500 mb-4">Pricing</span>
                 <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Simple. No surprises.</h2>
-                <p class="text-neutral-400 font-light text-lg">Two options. No hidden fees. No subscriptions that sneak up on you.</p>
+                <p class="text-neutral-300 font-light text-lg">Two options. No hidden fees. No subscriptions that sneak up on you.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                <!-- Monthly -->
                 <div class="glass card-hover rounded-2xl p-8 flex flex-col">
                     <div class="mb-6">
                         <h3 class="text-lg font-semibold mb-1">Monthly</h3>
-                        <p class="text-sm text-neutral-500">Try it out, cancel anytime</p>
+                        <p class="text-sm text-neutral-400">Try it out, cancel anytime</p>
                     </div>
                     <div class="mb-6">
                         <span class="text-4xl font-bold">€15.99</span>
-                        <span class="text-neutral-500 text-sm">/month</span>
+                        <span class="text-neutral-400 text-sm">/month</span>
                     </div>
                     <ul class="space-y-3 mb-8 flex-grow">
-                        <li class="flex items-center gap-3 text-sm text-neutral-300">
+                        <li class="flex items-center gap-3 text-sm text-neutral-200">
                             <i data-lucide="check" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
                             All base-hunting modules
                         </li>
-                        <li class="flex items-center gap-3 text-sm text-neutral-300">
+                        <li class="flex items-center gap-3 text-sm text-neutral-200">
                             <i data-lucide="check" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
                             Smooth rendering engine
                         </li>
-                        <li class="flex items-center gap-3 text-sm text-neutral-300">
+                        <li class="flex items-center gap-3 text-sm text-neutral-200">
                             <i data-lucide="check" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
                             All future updates
                         </li>
-                        <li class="flex items-center gap-3 text-sm text-neutral-300">
+                        <li class="flex items-center gap-3 text-sm text-neutral-200">
                             <i data-lucide="check" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
                             Discord support
                         </li>
@@ -458,38 +460,37 @@
                         Get Monthly
                     </button>
                 </div>
-                <!-- Lifetime -->
                 <div class="pricing-popular rounded-2xl">
-                    <div class="bg-black rounded-2xl p-8 flex flex-col relative overflow-hidden h-full">
+                    <div class="bg-[#0f0f0f] rounded-2xl p-8 flex flex-col relative overflow-hidden h-full">
                         <div class="absolute top-4 right-4">
-                            <span class="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-xs font-medium text-red-400">BEST VALUE</span>
+                            <span class="px-3 py-1 rounded-full bg-red-500/15 border border-red-500/25 text-xs font-medium text-red-400">BEST VALUE</span>
                         </div>
                         <div class="mb-6">
                             <h3 class="text-lg font-semibold mb-1">Lifetime</h3>
-                            <p class="text-sm text-neutral-500">Pay once, use forever</p>
+                            <p class="text-sm text-neutral-400">Pay once, use forever</p>
                         </div>
                         <div class="mb-6">
                             <span class="text-4xl font-bold text-red-500">€25.99</span>
-                            <span class="text-neutral-500 text-sm">/once</span>
+                            <span class="text-neutral-400 text-sm">/once</span>
                         </div>
                         <ul class="space-y-3 mb-8 flex-grow">
-                            <li class="flex items-center gap-3 text-sm text-neutral-300">
+                            <li class="flex items-center gap-3 text-sm text-neutral-200">
                                 <i data-lucide="check" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
                                 Everything in Monthly
                             </li>
-                            <li class="flex items-center gap-3 text-sm text-neutral-300">
+                            <li class="flex items-center gap-3 text-sm text-neutral-200">
                                 <i data-lucide="check" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
                                 Permanent access
                             </li>
-                            <li class="flex items-center gap-3 text-sm text-neutral-300">
+                            <li class="flex items-center gap-3 text-sm text-neutral-200">
                                 <i data-lucide="check" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
                                 Priority support
                             </li>
-                            <li class="flex items-center gap-3 text-sm text-neutral-300">
+                            <li class="flex items-center gap-3 text-sm text-neutral-200">
                                 <i data-lucide="check" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
                                 Early access to betas
                             </li>
-                            <li class="flex items-center gap-3 text-sm text-neutral-300">
+                            <li class="flex items-center gap-3 text-sm text-neutral-200">
                                 <i data-lucide="check" class="w-4 h-4 text-red-500 flex-shrink-0"></i>
                                 Never pay again
                             </li>
@@ -502,7 +503,7 @@
                 </div>
             </div>
             <div class="text-center mt-10">
-                <div class="inline-flex items-center gap-2 text-sm text-neutral-500">
+                <div class="inline-flex items-center gap-2 text-sm text-neutral-400">
                     <i data-lucide="shield" class="w-4 h-4"></i>
                     Payment handled through Discord — secure and simple
                 </div>
@@ -511,65 +512,65 @@
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="relative py-24 md:py-32 border-t border-white/5">
+    <section id="faq" class="relative py-24 md:py-32 border-t border-white/10" style="background: #0f0f0f;">
         <div class="max-w-3xl mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="inline-block text-xs font-medium tracking-[0.2em] uppercase text-red-500 mb-4">FAQ</span>
                 <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Questions? Answered.</h2>
             </div>
-            <div class="space-y-3" id="faq-container">
+            <div class="space-y-3">
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between p-5 text-left group">
                         <span class="text-sm font-medium pr-4">What version of Minecraft does Pedro Debug support?</span>
-                        <i data-lucide="plus" class="w-4 h-4 text-neutral-500 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
+                        <i data-lucide="plus" class="w-4 h-4 text-neutral-400 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
                     </button>
                     <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
-                        <p class="px-5 pb-5 text-sm text-neutral-400 font-light leading-relaxed">Pedro Debug is built specifically for Minecraft Bedrock Edition 1.21.11. It's not compatible with Java Edition or other Bedrock versions at this time.</p>
+                        <p class="px-5 pb-5 text-sm text-neutral-300 font-light leading-relaxed">Pedro Debug is built specifically for Minecraft Bedrock Edition 1.21.11. It's not compatible with Java Edition or other Bedrock versions at this time.</p>
                     </div>
                 </div>
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between p-5 text-left group">
                         <span class="text-sm font-medium pr-4">What does "base-hunting optimized" actually mean?</span>
-                        <i data-lucide="plus" class="w-4 h-4 text-neutral-500 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
+                        <i data-lucide="plus" class="w-4 h-4 text-neutral-400 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
                     </button>
                     <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
-                        <p class="px-5 pb-5 text-sm text-neutral-400 font-light leading-relaxed">It means we've built specific tools for finding player bases — enhanced chunk analysis, lighting detection, render distance extension, and coordinate tracking — all tuned specifically for DonutSMP's server configuration and world generation.</p>
+                        <p class="px-5 pb-5 text-sm text-neutral-300 font-light leading-relaxed">It means we've built specific tools for finding player bases — enhanced chunk analysis, lighting detection, render distance extension, and coordinate tracking — all tuned specifically for DonutSMP's server configuration and world generation.</p>
                     </div>
                 </div>
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between p-5 text-left group">
                         <span class="text-sm font-medium pr-4">Will I get banned using Pedro Debug?</span>
-                        <i data-lucide="plus" class="w-4 h-4 text-neutral-500 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
+                        <i data-lucide="plus" class="w-4 h-4 text-neutral-400 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
                     </button>
                     <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
-                        <p class="px-5 pb-5 text-sm text-neutral-400 font-light leading-relaxed">We've built Pedro Debug with safety as a top priority. Our modules are designed to be as low-profile as possible. However, using any modified client always carries some risk. We recommend using the client responsibly and following our setup guide for maximum safety.</p>
+                        <p class="px-5 pb-5 text-sm text-neutral-300 font-light leading-relaxed">We've built Pedro Debug with safety as a top priority. Our modules are designed to be as low-profile as possible. However, using any modified client always carries some risk. We recommend using the client responsibly.</p>
                     </div>
                 </div>
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between p-5 text-left group">
                         <span class="text-sm font-medium pr-4">How does payment work?</span>
-                        <i data-lucide="plus" class="w-4 h-4 text-neutral-500 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
+                        <i data-lucide="plus" class="w-4 h-4 text-neutral-400 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
                     </button>
                     <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
-                        <p class="px-5 pb-5 text-sm text-neutral-400 font-light leading-relaxed">Click any purchase button and you'll be redirected to our Discord server. Payment is handled there — we accept multiple methods. Once confirmed, you'll get access within minutes.</p>
+                        <p class="px-5 pb-5 text-sm text-neutral-300 font-light leading-relaxed">Click any purchase button and you'll be redirected to our Discord server. Payment is handled there — we accept multiple methods. Once confirmed, you'll get access within minutes.</p>
                     </div>
                 </div>
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between p-5 text-left group">
                         <span class="text-sm font-medium pr-4">Can I use my purchase on multiple devices?</span>
-                        <i data-lucide="plus" class="w-4 h-4 text-neutral-500 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
+                        <i data-lucide="plus" class="w-4 h-4 text-neutral-400 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
                     </button>
                     <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
-                        <p class="px-5 pb-5 text-sm text-neutral-400 font-light leading-relaxed">Each purchase is tied to one device. If you need to switch devices, reach out to us on Discord support and we'll help you transfer.</p>
+                        <p class="px-5 pb-5 text-sm text-neutral-300 font-light leading-relaxed">Each purchase is tied to one device. If you need to switch devices, reach out to us on Discord support and we'll help you transfer.</p>
                     </div>
                 </div>
                 <div class="faq-item glass rounded-xl overflow-hidden">
                     <button onclick="toggleFAQ(this)" class="w-full flex items-center justify-between p-5 text-left group">
                         <span class="text-sm font-medium pr-4">What happens when Minecraft updates?</span>
-                        <i data-lucide="plus" class="w-4 h-4 text-neutral-500 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
+                        <i data-lucide="plus" class="w-4 h-4 text-neutral-400 group-hover:text-red-500 transition-colors flex-shrink-0 faq-icon"></i>
                     </button>
                     <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
-                        <p class="px-5 pb-5 text-sm text-neutral-400 font-light leading-relaxed">We update Pedro Debug to match new Minecraft versions as quickly as possible — usually within 24-48 hours. The client has an auto-update system so you'll get the new version automatically.</p>
+                        <p class="px-5 pb-5 text-sm text-neutral-300 font-light leading-relaxed">We update Pedro Debug to match new Minecraft versions as quickly as possible — usually within 24-48 hours. The client has an auto-update system so you'll get the new version automatically.</p>
                     </div>
                 </div>
             </div>
@@ -577,19 +578,19 @@
     </section>
 
     <!-- Final CTA -->
-    <section class="relative py-24 md:py-32 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-t from-red-950/10 via-transparent to-transparent"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-600/5 rounded-full blur-[150px]"></div>
+    <section class="relative py-24 md:py-32 overflow-hidden" style="background: #0f0f0f;">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,0,0,0.12)_0%,transparent_70%)]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[150px]"></div>
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-            <img src="https://z-cdn-media.chatglm.cn/files/f16f9dee-82e2-4e90-b88a-d86e4a74dd66.jpg?auth_key=1878175700-5422dcb00b7f4aabb92793bc19e6cd44-0-d06ab7b0e9a980751a806b9affafea09" alt="PD" class="w-20 h-20 rounded-2xl mx-auto mb-8 glow-red">
+            <img src="https://z-cdn-media.chatglm.cn/files/f16f9dee-82e2-4e90-b88a-d86e4a74dd66.jpg?auth_key=1878175700-5422dcb00b7f4aabb92793bc19e6cd44-0-d06ab7b0e9a980751a806b9affafea09" alt="PD" class="w-20 h-20 rounded-2xl mx-auto mb-8 glow-red logo-transparent">
             <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-5">Ready to hunt?</h2>
-            <p class="text-neutral-400 font-light text-lg max-w-xl mx-auto mb-10">Join the players who are already finding bases faster on DonutSMP. Lifetime access for less than a pizza.</p>
+            <p class="text-neutral-200 font-light text-lg max-w-xl mx-auto mb-10">Join the players who are already finding bases faster on DonutSMP. Lifetime access for less than a pizza.</p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button onclick="openPurchaseModal('lifetime')" class="btn-primary text-white font-semibold px-10 py-4 rounded-xl text-sm flex items-center gap-2.5">
                     <i data-lucide="zap" class="w-4 h-4"></i>
                     Get Pedro Debug — €25.99
                 </button>
-                <a href="https://discord.gg/tw66vCJZpE" target="_blank" class="text-sm text-neutral-400 hover:text-red-400 transition-colors flex items-center gap-2">
+                <a href="https://discord.gg/tw66vCJZpE" target="_blank" class="text-sm text-neutral-300 hover:text-red-400 transition-colors flex items-center gap-2">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                     Questions? Ask on Discord
                 </a>
@@ -598,31 +599,29 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/5 py-12">
+    <footer class="border-t border-white/10 py-12" style="background: #0f0f0f;">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex items-center gap-3">
-                    <img src="https://z-cdn-media.chatglm.cn/files/f16f9dee-82e2-4e90-b88a-d86e4a74dd66.jpg?auth_key=1878175700-5422dcb00b7f4aabb92793bc19e6cd44-0-d06ab7b0e9a980751a806b9affafea09" alt="PD" class="w-7 h-7 rounded-md">
-                    <span class="text-sm text-neutral-500">© 2025 Pedro Debug. All rights reserved.</span>
+                    <img src="https://z-cdn-media.chatglm.cn/files/f16f9dee-82e2-4e90-b88a-d86e4a74dd66.jpg?auth_key=1878175700-5422dcb00b7f4aabb92793bc19e6cd44-0-d06ab7b0e9a980751a806b9affafea09" alt="PD" class="w-7 h-7 rounded-md logo-transparent">
+                    <span class="text-sm text-neutral-400">© 2025 Pedro Debug. All rights reserved.</span>
                 </div>
                 <div class="flex items-center gap-6">
-                    <a href="https://discord.gg/tw66vCJZpE" target="_blank" class="text-neutral-500 hover:text-red-400 transition-colors">
+                    <a href="https://discord.gg/tw66vCJZpE" target="_blank" class="text-neutral-400 hover:text-red-400 transition-colors">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                     </a>
-                    <a href="#" class="text-sm text-neutral-500 hover:text-white transition-colors">Terms</a>
-                    <a href="#" class="text-sm text-neutral-500 hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="text-sm text-neutral-400 hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="text-sm text-neutral-400 hover:text-white transition-colors">Privacy</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Init icons
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) lucide.createIcons();
         });
 
-        // Mobile menu
         function toggleMobileMenu() {
             document.getElementById('mobile-menu').classList.toggle('open');
         }
@@ -630,12 +629,10 @@
             document.getElementById('mobile-menu').classList.remove('open');
         }
 
-        // Purchase modal
         function openPurchaseModal(plan) {
             const modal = document.getElementById('purchaseModal');
             const title = document.getElementById('modal-title');
             const planText = document.getElementById('modal-plan');
-            
             if (plan === 'lifetime') {
                 title.textContent = 'Get Lifetime Access';
                 planText.textContent = '€25.99 — One-time payment';
@@ -643,7 +640,6 @@
                 title.textContent = 'Get Monthly Access';
                 planText.textContent = '€15.99 — Monthly';
             }
-            
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -658,23 +654,19 @@
             window.open('https://discord.gg/tw66vCJZpE', '_blank');
         }
 
-        // FAQ
         function toggleFAQ(button) {
             const item = button.parentElement;
             const answer = item.querySelector('.faq-answer');
             const icon = button.querySelector('.faq-icon');
             const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
-
             document.querySelectorAll('.faq-answer').forEach(a => a.style.maxHeight = '0px');
             document.querySelectorAll('.faq-icon').forEach(i => i.style.transform = 'rotate(0deg)');
-
             if (!isOpen) {
                 answer.style.maxHeight = answer.scrollHeight + 'px';
                 icon.style.transform = 'rotate(45deg)';
             }
         }
 
-        // Scroll animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -692,7 +684,6 @@
             observer.observe(el);
         });
 
-        // ESC to close
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
         });
